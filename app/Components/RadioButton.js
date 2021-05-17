@@ -30,7 +30,7 @@ export default class RadioButton extends Component {
 					);
 				})}
 				</View>
-                <Text> Selected: {this.state.value} </Text>
+                {this.props.propfromparent(this.state.value)}
 			</View>
 		);
 	}

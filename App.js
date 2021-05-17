@@ -7,6 +7,7 @@ import Navigator from "./app/routes/LoginStack";
 //import MainScreenNavigator from "./app/routes/TestTab"
 //import Addition from './app/screens/Addition';
 //import Create from './app/Components/Create';
+//import ChartScreen from "./app/screens/chart";
 
 export default function App() {
   return (

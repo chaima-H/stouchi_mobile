@@ -1,15 +1,22 @@
-import React,{useState,Component} from 'react';
+import React,{useState,Component,useEffect} from 'react';
 import {View,Text,StyleSheet,TouchableOpacity,Modal, SafeAreaView,TextInput, Button} from 'react-native';
 import {ModalPicker} from '../Components/ModalPicker';
 import {ModalFreq} from '../Components/ModalFreq';
 import TestDate from '../Components/TestDate';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const ModifScreen =()=>{
   const[chooseData,SetchooseData]=useState('choose category');
         const[isModalVisible,setisModalVisible]=useState(false);
         const[chooseDataFreq,SetchooseDataFreq]=useState('periodicity');
-     
+        const [min,setMin]=useState('0.0');
+        const [max,setMax]=useState('0.0');
+        const [amount,setAmount]=useState('0.0');
+        const [average,setAverage]=useState('0.0');
+        const [dateDeb,setDateDeb]=useState('');
+        const [dateFin,setDateFin]=useState('');
         const[isModalVisibleFreq,setisModalVisibleFreq]=useState(false);
-    
+       
         
         const changeModalVisibility=(bool)=>{
           setisModalVisible(bool)
@@ -26,6 +33,49 @@ const ModifScreen =()=>{
     }
 
       const [shouldShow,setshouldShow]=useState(false);
+      var axios = require('axios');
+   var data = JSON.stringify({
+     
+     "minMontant": min,
+     "maxMnotant": max,
+     "nameCatego": chooseData,
+      "average":average,
+      "frequency":chooseDataFreq,
+      "dateDeb":dateDeb,
+      "dateFin":dateFin,
+      "fixedMontant":amount,
+   });
+   const handleLogout = (config) => {
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  };
+  console.log(data);
+   useEffect(()=>
+   {console.log( "text"+AsyncStorage.getItem('token'));
+      AsyncStorage.getItem('token').then(
+          res=>{
+              console.log("modify"+res);
+              const config={
+                method: 'put',
+                url:'http://192.168.1.6:8080/api/categories/'+chooseData,
+                  headers:{
+                      Authorization:'Bearer '+ res,
+                      'Content-Type': 'application/json',
+
+                  },
+                  data:data
+              };
+           handleLogout(config);
+          },
+          err=>{console.log(err);}
+      )
+  },[handleLogout]);
+ 
         return(
             <SafeAreaView style={styles.container}>
               <Text style={styles.label}>Name category</Text>
@@ -46,26 +96,38 @@ const ModifScreen =()=>{
               <View style={styles.double}><TextInput
           style={styles.input1}
          placeholder="min"
-         placeholderTextColor="#177685"></TextInput>
+         placeholderTextColor="#177685"
+         value={min}
+         onChangeText={(min)=>{setMin(min)}}
+         keyboardType="numeric"></TextInput>
          <TextInput
           style={styles.input1}
          placeholder="max"
-         placeholderTextColor="#177685"></TextInput></View>
+         placeholderTextColor="#177685"
+         value={max}
+         onChangeText={(max)=>{setMax(max)}}
+         keyboardType="numeric"></TextInput></View>
 
         
          <TextInput
           style={styles.input}
          placeholder="average"
-         placeholderTextColor="#177685"></TextInput>
+         placeholderTextColor="#177685"
+         value={average}
+         onChangeText={(average)=>{setAverage(average)}}
+         keyboardType="numeric"></TextInput>
 
          <View style={styles.button}><Button  color="#177685" title='frequency' onPress={()=>{setshouldShow(!shouldShow)}}></Button></View>{shouldShow?(
          <View>
-          <View style={styles.double}><Text style={styles.label} >Start date</Text><TestDate></TestDate></View>
-          <View style={styles.double}><Text style={styles.label} >End date</Text><TestDate></TestDate></View>
+          <View style={styles.double}><Text style={styles.label} >Start date</Text><TestDate  setDate={(dateDeb)=>{setDateDeb(dateDeb)}}></TestDate></View>
+          <View style={styles.double}><Text style={styles.label} >End date</Text><TestDate  setDate={(dateFin)=>{setDateFin(dateFin)}}></TestDate></View>
           <TextInput
           style={styles.input}
          placeholder="amount"
-         placeholderTextColor="#177685"></TextInput>
+         placeholderTextColor="#177685"
+         value={amount}
+         onChangeText={(amount)=>{setAmount(amount)}}
+         keyboardType="numeric"></TextInput>
           <TouchableOpacity onPress={()=>changeModalVisibilityFreq(true)}
               style={styles.touchableOpacity}>
               <Text style={styles.text}>{chooseDataFreq}</Text></TouchableOpacity>
@@ -80,7 +142,7 @@ const ModifScreen =()=>{
                   ></ModalFreq>
               </Modal></View>):null}
               
-         <View style={styles.button}><Button  color="#EBE119"  title='Modify' ></Button></View>
+         <View style={styles.button}><Button  color="#EBE119"  title='Modify' onPress={handleLogout} ></Button></View>
               </SafeAreaView>
         )
     }
@@ -153,3 +215,12 @@ const styles = StyleSheet.create({
 });
 
 export default ModifScreen;
+/*()=>console.log(
+          min,
+           max,
+           average,
+           dateDeb,
+           amount,
+           dateFin,
+           chooseData,
+           chooseDataFreq)*/

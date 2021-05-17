@@ -1,7 +1,7 @@
 import React,{ useState } from 'react';
 import { View , StyleSheet,TouchableOpacity,Text,FlatList} from 'react-native';
 import { FontAwesome} from '@expo/vector-icons';
-function VariousCategorie(){
+function VariousCategorie({navigation}){
     const [categorie,setCategorie]=useState([
         {name:"Salary",key:'1'},
         {name:"Sale & Rents",key:'2'},
@@ -42,6 +42,8 @@ function VariousCategorie(){
   alignItems:'center',
   marginLeft:10}} ><FontAwesome name="dollar" size={27} color="white"/></View>
                 <Text style={styles.name}>{item.name}</Text>
+                {(navigation.getParam('test'))=='addition'?(
+             <FontAwesome style={styles.check} name="check" size={27} color="green" onPress={()=>{navigation.getParam("OnSelectSub")(item.name); navigation.goBack(null)}}></FontAwesome>):null}
                 </TouchableOpacity>
             )}/>  
         </View>
@@ -93,6 +95,11 @@ general:{
     alignContent:'center',
     alignItems:'center',
  
+},
+check:{
+   position:'absolute',
+   right:0 ,
+   marginRight:10
 }
 
 });

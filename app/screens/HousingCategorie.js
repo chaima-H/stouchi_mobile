@@ -1,7 +1,7 @@
 import React,{ useState } from 'react';
 import { View , StyleSheet,TouchableOpacity,Text,FlatList} from 'react-native';
 import { FontAwesome ,MaterialIcons} from '@expo/vector-icons';
-function HousingCategorie(){
+function HousingCategorie({navigation}){
     const [categorie,setCategorie]=useState([
         {name:"Rent",nameIcon:"night-shelter",color:"#1DAED9",key:'1'},
         {name:"Loan",nameIcon:"payment",color:"#1DAED9",key:'2'},
@@ -35,6 +35,8 @@ function HousingCategorie(){
   alignItems:'center',
   marginLeft:10}} ><MaterialIcons name={item.nameIcon} size={27} color="white"/></View>
                 <Text style={styles.name}>{item.name}</Text>
+                {(navigation.getParam('test'))=='addition'?(
+             <FontAwesome style={styles.check} name="check" size={27} color="green" onPress={()=>{navigation.getParam("OnSelectSub")(item.name); navigation.goBack(null)}}></FontAwesome>):null}
                 </TouchableOpacity>
             )}/>  
         </View>
@@ -86,6 +88,11 @@ general:{
     alignContent:'center',
     alignItems:'center',
  
+},
+check:{
+   position:'absolute',
+   right:0 ,
+   marginRight:10
 }
 
 });

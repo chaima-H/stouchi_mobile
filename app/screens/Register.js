@@ -18,14 +18,14 @@ const validationSchema=yup.object({
    // pay:  yup.string().required()     
 });
 
- function Register(){
-
+ function Register({navigation}){
+  
   return(
    <View style={styles.container}>
      <Formik
      initialValues={{name:'',userName:'',email:'',password:'',pay:''}}
      onSubmit={(values, { setSubmitting }) => {
-      axios.post('	http://192.168.1.5:8080/api/register', {
+      axios.post('http://192.168.1.6:8080/api/register', {
         login: values.userName,
         password: values.password,
         email:values.email,
@@ -33,9 +33,11 @@ const validationSchema=yup.object({
         userSolde:values.pay
 
       })
-      .then(function (response) {
-        console.log(response);
-      })
+      .then(res=>{
+          
+        navigation.goBack();}
+        
+      ,)
       .catch(function (error) {
         console.log(error);
       });

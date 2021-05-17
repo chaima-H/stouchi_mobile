@@ -1,7 +1,7 @@
 import React,{ useState } from 'react';
 import { View , StyleSheet,TouchableOpacity,Text,FlatList} from 'react-native';
 import { FontAwesome ,MaterialCommunityIcons} from '@expo/vector-icons';
-function TransportCategorie(){
+function TransportCategorie({navigation}){
     const [categorie,setCategorie]=useState([
         {name:"Public transport",nameIcon:"train",color:"#F37A21",key:'1'},
         {name:"Taxi",nameIcon:"taxi",color:"#F37A21",key:'2'},
@@ -39,6 +39,8 @@ function TransportCategorie(){
   alignItems:'center',
   marginLeft:10}} ><MaterialCommunityIcons name={item.nameIcon} size={27} color="white"/></View>
                 <Text style={styles.name}>{item.name}</Text>
+                {(navigation.getParam('test'))=='addition'?(
+             <FontAwesome style={styles.check} name="check" size={27} color="green" onPress={()=>{navigation.getParam("OnSelectSub")(item.name); navigation.goBack(null)}}></FontAwesome>):null}
                 </TouchableOpacity>
             )}/>  
         </View>
@@ -90,6 +92,11 @@ general:{
     alignContent:'center',
     alignItems:'center',
  
+},
+check:{
+   position:'absolute',
+   right:0 ,
+   marginRight:10
 }
 
 });

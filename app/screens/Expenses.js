@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React,{Component,useEffect} from 'react';
+import React,{Component,useEffect,useState} from 'react';
 import {View,Text,StyleSheet, Button,TouchableOpacity} from 'react-native';
 import Footer from '../shared/footer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Expenses ({navigation}){
+    const[budget,setBudget]=useState('');
     const pressHandler=()=>{
         navigation.navigate('Addition');
          } 
@@ -18,17 +19,17 @@ function Expenses ({navigation}){
                             Authorization:'Bearer '+ res
                         }
                     };
-                    axios.get('http://192.168.43.155:8080/api/account',config).then(
+                    axios.get('http://192.168.1.6:8080/api/account',config).then(
                     res=>{
     
                         console.log(res.data);
-                    state.name=res.data.firstName;},
+                    setBudget(res.data.soldeUser);},
                     err=>{console.log(err);}
                 )
                 },
                 err=>{console.log(err);}
             )
-        },[]);
+        },[setBudget]);
          
     
         return(
@@ -38,7 +39,7 @@ function Expenses ({navigation}){
             <View style={styles.innerContainer}>
             <TouchableOpacity >
   <View style={styles.button}>
-      <Text style={styles.buttonText}>budget</Text>
+      <Text style={styles.buttonText}>{budget}</Text>
   </View>
   </TouchableOpacity>
                 <Button title=' + ' color="#87CEEB" onPress={pressHandler}></Button>

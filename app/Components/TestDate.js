@@ -15,7 +15,7 @@ import {
 //import DatePicker from the package we installed
 import DatePicker from 'react-native-datepicker';
 
-const TestDate = () => {
+function TestDate  (props)  {
   const [date, setDate] = useState('');
 
   return (
@@ -27,7 +27,7 @@ const TestDate = () => {
           date={date} // Initial date from state
           mode="date" // The enum of date, datetime and time
           placeholder="select date"
-          format="DD-MM-YYYY"
+          format="YYYY-MM-DD"
      
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
@@ -46,9 +46,11 @@ const TestDate = () => {
 
           }}
           onDateChange={(date) => {
-            setDate(date);
+           setDate(date);
           }}
         />
+        <View>{props.setDate(date)}</View>
+     
       </View>
     </SafeAreaView>
   );

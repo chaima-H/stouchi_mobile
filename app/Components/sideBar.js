@@ -1,18 +1,45 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import {Text,View,Image,StyleSheet,SafeAreaView,ScrollView} from 'react-native';
 import {DrawerNavigatorItems} from 'react-navigation-drawer';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default SideBar = props =>(
+const SideBar =( props) =>{
+    const[name,setName]=useState([]);
+    //const[firstName,setFirstName]=useState('');
+    useEffect(()=>
+    {console.log( "text"+AsyncStorage.getItem('token'));
+       AsyncStorage.getItem('token').then(
+           res=>{
+               console.log(res);
+               const config={
+                   headers:{
+                       Authorization:'Bearer '+ res
+                   }
+               };
+               axios.get('http://192.168.1.6:8080/api/account',config).then(
+               res=>{
+
+                   console.log(res.data);
+               setName([res.data.firstName," ",res.data.login]);},
+               err=>{console.log(err);}
+           )
+           },
+           err=>{console.log(err);}
+       )
+   },[setName]);
+    return(  
     <ScrollView>
        <View style={styles.viewTop}>
      <Image style={styles.photo} source={require('../assets/logo.png')} resizeMode='contain'/>
-     <Text style={styles.name}>Chaima Hafsi</Text>
+     <Text style={styles.name}>{name}</Text>
      </View>
      <View style={styles.conatiner}>
          <DrawerNavigatorItems {...props}/>
      </View>
     </ScrollView>
 );
+}
 const Styles=StyleSheet.create({
 
 });
@@ -43,3 +70,4 @@ name:{
  
 }
 });
+export default SideBar;

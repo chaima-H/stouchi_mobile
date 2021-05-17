@@ -36,7 +36,7 @@ navigation.navigate('Register');
          secureTextEntry
          placeholderTextColor="white"
          ></TextInput>
-        <FlatButton text='LOGIN' onPress={() => {axios.post('http://192.168.43.155:8080/api/authenticate',{
+        <FlatButton text='LOGIN' onPress={() => {axios.post('http://192.168.1.6:8080/api/authenticate',{
           username:Username,
            password:Password,
         })

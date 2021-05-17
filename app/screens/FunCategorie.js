@@ -1,7 +1,7 @@
 import React,{ useState } from 'react';
 import { View , StyleSheet,TouchableOpacity,Text,FlatList} from 'react-native';
 import { FontAwesome ,MaterialCommunityIcons} from '@expo/vector-icons';
-function FunCategorie(){
+function FunCategorie({navigation}){
     const [categorie,setCategorie]=useState([
         {name:"Culture,Sporting events",nameIcon:"ticket",color:"#58CB39",key:'1'},
         {name:"Beauty & Wellness",nameIcon:"lipstick",color:"#58CB39",key:'2'},
@@ -40,6 +40,8 @@ function FunCategorie(){
   alignItems:'center',
   marginLeft:10}} ><MaterialCommunityIcons name={item.nameIcon} size={27} color="white"/></View>
                 <Text style={styles.name}>{item.name}</Text>
+                {(navigation.getParam('test'))=='addition'?(
+             <FontAwesome style={styles.check} name="check" size={27} color="green" onPress={()=>{navigation.getParam("OnSelectSub")(item.name); navigation.goBack(null)}}></FontAwesome>):null}
                 </TouchableOpacity>
             )}/>  
         </View>
@@ -91,6 +93,11 @@ general:{
     alignContent:'center',
     alignItems:'center',
  
+},
+check:{
+   position:'absolute',
+   right:0 ,
+   marginRight:10
 }
 
 });

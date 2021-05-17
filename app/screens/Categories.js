@@ -14,8 +14,17 @@ function Categories({navigation}){const [categorie,setCategorie]=useState([
     {name:"Unexpected",nameIcon:"warning",color:"#BB1616",dest:"UnexCategorie",key:'9'},
     {name:"Income",nameIcon:"dollar",color:"#F7EE27",dest:"IncomeCategorie",key:'10'},
 ]);
-
-
+  
+const pressHandler=(color)=>{
+    navigation.getParam("OnSelect")(color);
+    navigation.goBack();
+   
+   }
+   const[nameSub,setNameSub]=useState('');
+   OnSelectSub=(data)=>{
+     setNameSub(data);
+   
+   }
 return(
     <View style={styles.container}>
          <Text style={styles.Title}>All the Categories</Text>
@@ -23,7 +32,7 @@ return(
         data={categorie}
         renderItem={({item})=>(
            <TouchableOpacity style={styles.item}
-           onPress={()=>{navigation.navigate(item.dest);}}>
+           onPress={()=>{navigation.navigate(item.dest,{OnSelectSub:OnSelectSub, test:'addition'});}}>
             <View style={{width:40,
 height:40, 
 backgroundColor:item.color,
@@ -33,8 +42,11 @@ justifyContent:'center',
 alignItems:'center',
 marginLeft:10}} ><FontAwesome name={item.nameIcon} size={27} color="white"/></View>
             <Text style={styles.name}>{item.name}</Text>
+            {(navigation.getParam('test'))=='addition'?(
+             <FontAwesome style={styles.check} name="check" size={27} color="green" onPress={()=>{ navigation.getParam("OnSelect")({color:item.color,name:item.name,nameSub:nameSub}); navigation.goBack(null)}}></FontAwesome>):null}
             </TouchableOpacity>
         )}/>  
+          
     </View>
 );
 }
@@ -78,6 +90,11 @@ backgroundColor:'#CCC',
 textAlignVertical:'center',
 fontSize:20,
 paddingLeft:10
+},
+check:{
+   position:'absolute',
+   right:0 ,
+   marginRight:10
 }
 
 });

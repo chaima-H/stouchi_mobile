@@ -23,7 +23,8 @@ const MainStack=createDrawerNavigator(
     Account:{
         screen:account,
         navigationOptions:{
-            drawerIcon:({})=><MaterialIcons name="account-balance-wallet" size={24} color="blue"/>
+            drawerIcon:({})=><MaterialIcons name="account-balance-wallet" size={24} color="blue"/>,
+           
          }
     },
     Categories:{
@@ -35,7 +36,7 @@ const MainStack=createDrawerNavigator(
     Chart:{
         screen:chart,
         navigationOptions:{
-            drawerIcon:({tintColor})=><MaterialIcons name="pie-chart" size={24} color={tintColor}/>
+            drawerIcon:({tintColor})=><MaterialIcons name="pie-chart" size={24} color={tintColor}/>,
            }
    },
    Reminder:{
