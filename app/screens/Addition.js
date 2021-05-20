@@ -6,16 +6,18 @@ import RadioButton from '../Components/RadioButton';
 import {  MaterialIcons} from '@expo/vector-icons';
 import TestDate from '../Components/TestDate';
 import axios from 'axios';
+import baseUrl from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Create from '../Components/Create';
+import { date } from 'yup/lib/locale';
 
 const PROP = [
 	{
-		key: 'Expenses',
+		key: 'Depense',
 		text: 'Expenses',
 	},
 	{
-		key: 'Incomes',
+		key: 'Revenus',
 		text: 'Incomes',
 	},
 	
@@ -37,30 +39,25 @@ const PROP = [
    const[select,setSelect]=useState({color:"#87CEE0",name:'',nameSub:''});
 
    var axios = require('axios');
-   var data = JSON.stringify({
-     "type": radio,
-     "montant": amount,
-     "note": comment,
-     "nameCatego": (select.nameSub==""?select.name:select.nameSub),
-      "modifDate":"2021-05-15T10:26:25.388Z",
-   });
-   console.log(data);
-   const handleLogout = (config) => {
-    axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-  };
+   
+   
   
-   useEffect(()=>
+  const handleLogout = () => 
+    
    {console.log( "text"+AsyncStorage.getItem('token'));
       AsyncStorage.getItem('token').then(
           res=>{
+
               console.log(res);
-              const testUrl='http://192.168.1.6:8080/api/categories/'+(select.nameSub==""?select.name:select.nameSub);
+              const data = JSON.stringify({
+                "type": radio,
+                "montant": amount,
+                "note": comment,
+                "nameCatego": (select.nameSub==""?select.name:select.nameSub),
+                 "modifDate":dateChild,
+              });
+              console.log("showww"+data);
+              const testUrl=baseUrl+'api/categories/'+(select.nameSub==""?select.name:select.nameSub);
               const config={
                 method: 'put',
                 url:testUrl,
@@ -71,11 +68,16 @@ const PROP = [
                   },
                   data:data
               };
-           handleLogout(config);
+              axios(config)
+              .then(function (response) {
+                console.log(JSON.stringify(response.data));
+              })
+              .catch(function (error) {
+                console.log(error);
+              })
           },
           err=>{console.log(err);}
-      )
-  },[handleLogout]);
+      )}
  
     return (
       <KeyboardAvoidingView  style={{flex:1}} behavior={Platform.os=== "ios" ? "padding" : "height"}>
@@ -115,7 +117,7 @@ const PROP = [
  <View style={styles.icon} ><MaterialIcons name="add-circle" size={35} color="white" onPress={()=>{setModalOpen(true)}}/></View>
 </View>
 
-<Text>    choose          create</Text>   
+<Text style={{fontWeight:'bold',fontSize:16}}> choose       create</Text>   
    
 <View style={styles.double}><Text style={styles.label} >Date</Text><TestDate setDate={(dateChild)=>{setDateChild(dateChild)}}></TestDate></View>
            
@@ -159,6 +161,7 @@ const styles = StyleSheet.create({
    textContainer:{
       flexDirection:'row',
       
+      
    },
  
    button:{
@@ -166,8 +169,8 @@ const styles = StyleSheet.create({
      bottom:0,
     alignSelf:'center',
     marginTop:15,
-    height:80,
-    width:100,
+    height:100,
+    width:150,
     
   },
   label: {
@@ -176,13 +179,14 @@ const styles = StyleSheet.create({
     marginTop:20,
     fontWeight:'bold',
     color:'#177685',
-    paddingRight:15
+    paddingRight:12
     
   },
   double:{
     flexDirection:'row',
     marginTop:20,
     justifyContent:'space-between',  
+    
     
     
   },

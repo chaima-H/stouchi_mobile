@@ -3,6 +3,7 @@ import { Text, View, StyleSheet,TextInput,FlatList,TouchableOpacity,SafeAreaView
 ,KeyboardAvoidingView,Keyboard,TouchableWithoutFeedback,Platform} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
+import baseUrl from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ColorPicker } from 'react-native-status-color-picker';
 const icons=[{name:'grav'},{name:'bath'},{name:'thermometer'},{name:'free-code-camp'},{name:'id-card'},{name:'address-book'},{name:'envelope-open'},{name:'motorcycle'},{name:'birthday-cake'},{name:'paint-brush'},{name:'cc-visa'}
@@ -41,7 +42,7 @@ export default class Create extends Component {
      });
      console.log("zidha"+data);
       const config={
-        url:'http://192.168.1.6:8080/api/categories',
+        url:baseUrl+'api/categories',
         method:'post',
           headers:{
               Authorization:'Bearer '+ res,

@@ -4,6 +4,7 @@ import {ModalPicker} from '../Components/ModalPicker';
 import {ModalFreq} from '../Components/ModalFreq';
 import TestDate from '../Components/TestDate';
 import axios from 'axios';
+import baseUrl from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const ModifScreen =()=>{
   const[chooseData,SetchooseData]=useState('choose category');
@@ -62,7 +63,7 @@ const ModifScreen =()=>{
               console.log("modify"+res);
               const config={
                 method: 'put',
-                url:'http://192.168.1.6:8080/api/categories/'+chooseData,
+                url:baseUrl+'categories/'+chooseData,
                   headers:{
                       Authorization:'Bearer '+ res,
                       'Content-Type': 'application/json',

@@ -40,13 +40,15 @@ const styles = StyleSheet.create({
 	cont:{
 		flexDirection:'row',
 		justifyContent:'space-around',
-		marginLeft:5
+		marginLeft:5,
+	
 	},
 	container: {
         marginBottom: 20,
         alignItems: 'center',
         flexDirection: 'row',
 		justifyContent: 'space-between',
+		marginHorizontal:8
 		
 	},
     radioText: {

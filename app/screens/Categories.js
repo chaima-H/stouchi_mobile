@@ -2,6 +2,7 @@
 import React,{ useState } from 'react';
 import { View , StyleSheet,TouchableOpacity,Text,FlatList} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+
 function Categories({navigation}){const [categorie,setCategorie]=useState([
     {name:"Food & Drinks",nameIcon:"cutlery",color:"red",dest:"FoodCategorie",key:'1'},
     {name:"Housing",nameIcon:"home",color:"#1DAED9",dest:"HousingCategorie",key:'2'},
@@ -43,7 +44,10 @@ alignItems:'center',
 marginLeft:10}} ><FontAwesome name={item.nameIcon} size={27} color="white"/></View>
             <Text style={styles.name}>{item.name}</Text>
             {(navigation.getParam('test'))=='addition'?(
-             <FontAwesome style={styles.check} name="check" size={27} color="green" onPress={()=>{ navigation.getParam("OnSelect")({color:item.color,name:item.name,nameSub:nameSub}); navigation.goBack(null)}}></FontAwesome>):null}
+             <FontAwesome style={styles.check} name="check" size={27} color="green" onPress={()=>{ navigation.getParam("OnSelect")({color:item.color,name:item.name,nameSub:nameSub}); navigation.goBack(null)}}></FontAwesome>)
+             :<View style={styles.check}>
+             <FontAwesome  style={styles.icon} name="eye" size={24} color="black" />
+             <FontAwesome  style={styles.icon} name="trash-o" size={24} color="black" /></View>}
             </TouchableOpacity>
         )}/>  
           
@@ -94,8 +98,15 @@ paddingLeft:10
 check:{
    position:'absolute',
    right:0 ,
-   marginRight:10
-}
+   marginRight:10,
+   alignSelf:'center',
+   flexDirection:'row',
+   
+},
+icon:{
+marginRight:5,
+marginLeft:5,
 
+}
 });
 export default Categories;

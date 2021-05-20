@@ -53,7 +53,7 @@ const Tabs=createBottomTabNavigator(
          screen:Expenses
     },
      Income:{
-         screen:Income
+         screen:Incomes
      },
     },
     {

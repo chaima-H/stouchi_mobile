@@ -12,7 +12,7 @@ const Tabs=createMaterialTopTabNavigator(
     { Expenses:{
          screen:Expenses
     },
-     Income:{
+     Incomes:{
          screen:Income
      },
     

@@ -4,6 +4,7 @@ import FlatButton from '../Components/Buttons';
 import {Formik} from "formik";
 import * as yup from "yup";
 import axios from 'axios';
+import baseUrl from '../services/api';
 const validationSchema=yup.object({
   name: yup.string()
         .required(),
@@ -23,14 +24,14 @@ const validationSchema=yup.object({
   return(
    <View style={styles.container}>
      <Formik
-     initialValues={{name:'',userName:'',email:'',password:'',pay:''}}
+     initialValues={{name:'',userName:'',email:'',password:'',soldeUser:''}}
      onSubmit={(values, { setSubmitting }) => {
-      axios.post('http://192.168.1.6:8080/api/register', {
+      axios.post(baseUrl+'api/register', {
         login: values.userName,
         password: values.password,
         email:values.email,
         firstName:values.name,
-        userSolde:values.pay
+        soldeUser:values.soldeUser
 
       })
       .then(res=>{
@@ -84,10 +85,11 @@ const validationSchema=yup.object({
          style={styles.input} 
          placeholder="Pay" 
          placeholderTextColor="white"
-         onChangeText={props.handleChange('pay')}
-         value={props.values.pay}
+         onChangeText={props.handleChange('soldeUser')}
+         value={props.values.soldeUser}
          
          ></TextInput>
+        
            <FlatButton text='sign in' onPress={props.handleSubmit} />
          
          

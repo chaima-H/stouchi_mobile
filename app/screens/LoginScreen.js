@@ -3,6 +3,9 @@ import { View , StyleSheet,TextInput,Image,TouchableOpacity,Text,Alert} from 're
 import FlatButton from '../Components/Buttons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ForgetPassword from './ForgetPassword';
+import { FontAwesome} from '@expo/vector-icons';
+import baseUrl from '../services/api'
 function LoginScreen({navigation}) {
 const [Username,setUsername]=useState('');
 const[Password,SetPassword]=useState('');
@@ -21,7 +24,7 @@ navigation.navigate('Register');
             source={require('../assets/logo.png')} ></Image>
           </View>
           <View style={styles.formContainer}>
-         
+          
          <TextInput
           style={styles.input}
          placeholder="Username"
@@ -36,7 +39,7 @@ navigation.navigate('Register');
          secureTextEntry
          placeholderTextColor="white"
          ></TextInput>
-        <FlatButton text='LOGIN' onPress={() => {axios.post('http://192.168.1.6:8080/api/authenticate',{
+        <FlatButton text='LOGIN' onPress={() => {axios.post(baseUrl+'api/authenticate',{
           username:Username,
            password:Password,
         })
@@ -53,8 +56,7 @@ navigation.navigate('Register');
           }} />
         <TouchableOpacity style={{ paddingTop:20, alignItems:'center'}} onPress={pressHandler}>
           <Text style={{color:"white"}}>Don't have an account?Sign Up Now</Text></TouchableOpacity>
-        
-          <TouchableOpacity  style={{alignItems:'center'}} onPress={()=>{navigation.push('ForgetPassword');}}>
+        <TouchableOpacity  style={{alignItems:'center'}} onPress={()=>{navigation.push('ForgetPassword');}}>
         <Text style={{color:"white"}}>Forgot Password?</Text></TouchableOpacity>
         </View>
         </View>
@@ -87,7 +89,9 @@ const styles = StyleSheet.create({
      alignItems:'center',
      flexGrow: 0.1,
    },
-
+  TextContainer:{
+    flexDirection:'row'
+  }
  
   });
 

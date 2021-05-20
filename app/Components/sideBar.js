@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react';
 import {Text,View,Image,StyleSheet,SafeAreaView,ScrollView} from 'react-native';
 import {DrawerNavigatorItems} from 'react-navigation-drawer';
 import axios from 'axios';
+import baseUrl from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SideBar =( props) =>{
@@ -17,7 +18,7 @@ const SideBar =( props) =>{
                        Authorization:'Bearer '+ res
                    }
                };
-               axios.get('http://192.168.1.6:8080/api/account',config).then(
+               axios.get(baseUrl+'api/account',config).then(
                res=>{
 
                    console.log(res.data);
