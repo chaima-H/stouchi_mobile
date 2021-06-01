@@ -1,11 +1,12 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
-import HomeScreen from "../screens/HomeScreen";
+import GoalsScreen from "../screens/goals";
 import Header from '../shared/header';
-import Addition from '../screens/Addition';
+import NewGoal from "../Components/NewGoal";
+
 const screens={
-    HomeScreen:{
-        screen:HomeScreen,
+    GoalsScreen:{
+        screen:GoalsScreen,
          navigationOptions:({navigation})=>{
              return{
                 headerTitle:()=><Header navigation={navigation}/>,
@@ -15,8 +16,8 @@ const screens={
          }
              
     },
-    Addition:{
-        screen:Addition,
+    NewGoal:{
+        screen:NewGoal,
         navigationOptions:({navigation})=>{
             return{
                headerTitle:()=><Header navigation={navigation}/>,
@@ -28,5 +29,5 @@ const screens={
 
     
 }
-const HomeStack=createStackNavigator(screens);
-export default HomeStack;
+const GoalStack=createStackNavigator(screens);
+export default GoalStack;

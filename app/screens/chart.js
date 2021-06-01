@@ -69,7 +69,7 @@ function ChartScreen({navigation}){
           <View style={styles.header}><MaterialIcons name='menu' size={35} onPress={openMenu} style={styles.icon}/></View>
              <View style={styles.v1}><Text style={styles.label}>Pie chart Expenses/Incomes</Text>< PureChart  width={'100%'}
     height={200} data={dataPie} type='pie'/></View>
-            <View style={styles.v2}><Text style={styles.label}>Bie chart Expenses/Incomes</Text><PureChart  width={'100%'}
+            <View style={styles.v2}><Text style={styles.label}>Bar chart Expenses/Incomes</Text><PureChart  width={'100%'}
     height={150} data={dataBar} type='line'/></View>
         </View>
     );

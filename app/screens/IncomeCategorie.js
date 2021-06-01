@@ -9,7 +9,7 @@ function VariousCategorie({navigation}){
         {name:"Family allowances",key:'4'},
         {name:"Help",key:'5'},
         {name:"diverse",key:'6'},
-        {name:"Gifts",key:'7'},
+        {name:"Money Gifts",key:'7'},
       
         
         

@@ -1,15 +1,17 @@
 import React,{useState,Component,useEffect} from 'react';
-import {View,Text,StyleSheet,TouchableOpacity,Modal, SafeAreaView,TextInput, Button} from 'react-native';
+import {View,Text,StyleSheet,TouchableOpacity,Modal, SafeAreaView,TextInput, Button,Alert} from 'react-native';
 import {ModalPicker} from '../Components/ModalPicker';
 import {ModalFreq} from '../Components/ModalFreq';
 import TestDate from '../Components/TestDate';
 import axios from 'axios';
 import baseUrl from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 const ModifScreen =()=>{
   const[chooseData,SetchooseData]=useState('choose category');
         const[isModalVisible,setisModalVisible]=useState(false);
-        const[chooseDataFreq,SetchooseDataFreq]=useState('periodicity');
+        const[chooseDataFreq,SetchooseDataFreq]=useState('');
         const [min,setMin]=useState('0.0');
         const [max,setMax]=useState('0.0');
         const [amount,setAmount]=useState('0.0');
@@ -18,6 +20,7 @@ const ModifScreen =()=>{
         const [dateFin,setDateFin]=useState('');
         const[isModalVisibleFreq,setisModalVisibleFreq]=useState(false);
        
+        
         
         const changeModalVisibility=(bool)=>{
           setisModalVisible(bool)
@@ -35,47 +38,53 @@ const ModifScreen =()=>{
 
       const [shouldShow,setshouldShow]=useState(false);
       var axios = require('axios');
-   var data = JSON.stringify({
-     
-     "minMontant": min,
-     "maxMnotant": max,
-     "nameCatego": chooseData,
-      "average":average,
-      "frequency":chooseDataFreq,
-      "dateDeb":dateDeb,
-      "dateFin":dateFin,
-      "fixedMontant":amount,
-   });
-   const handleLogout = (config) => {
-    axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-  };
-  console.log(data);
-   useEffect(()=>
-   {console.log( "text"+AsyncStorage.getItem('token'));
-      AsyncStorage.getItem('token').then(
-          res=>{
-              console.log("modify"+res);
-              const config={
-                method: 'put',
-                url:baseUrl+'categories/'+chooseData,
-                  headers:{
-                      Authorization:'Bearer '+ res,
-                      'Content-Type': 'application/json',
-
-                  },
-                  data:data
-              };
-           handleLogout(config);
-          },
-          err=>{console.log(err);}
-      )
-  },[handleLogout]);
+ 
+      const handleLogout = () => 
+    
+      {console.log( "text"+AsyncStorage.getItem('token'));
+         AsyncStorage.getItem('token').then(
+             res=>{
+   
+                 console.log(res);
+                 const data = JSON.stringify({
+                  "minMontant": min,
+                  "maxMnotant": max,
+                  "nameCatego": chooseData,
+                   "average":average,
+                   "periodicityy":{
+                   "frequancy":chooseDataFreq,
+                   "dateDeb":dateDeb,
+                   "dateFin":dateFin,
+                   "fixedMontant":amount,}
+                });
+                 console.log("showww"+data);
+                 const testUrl=baseUrl+'api/categories/'+chooseData;
+                 const config={
+                   method: 'put',
+                   url:testUrl,
+                     headers:{
+                         Authorization:'Bearer '+ res,
+                         'Content-Type': 'application/json',
+   
+                     },
+                     data:data
+                 };
+                 axios(config)
+                 .then(function (response) {
+                   console.log(JSON.stringify(response.data));
+                   Alert.alert("","added success");
+                  
+                 })
+                 .catch(function (error) {
+                   console.log(error);
+                   Alert.alert("","added fail");
+                  
+                 })
+             },
+             err=>{console.log(err);}
+         )}
+    
+  
  
         return(
             <SafeAreaView style={styles.container}>

@@ -9,7 +9,13 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { FlatList } from 'react-native-gesture-handler';
 import {ListItem} from 'react-native-elements'
 
-function Expenses ({navigation}){
+const Expenses =({navigation})=>{
+  /*  useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+          Alert.alert('Refreshed');
+        });
+        return unsubscribe;
+      }, [navigation]);*/
     const[budget,setBudget]=useState('');
     const[dataPie,setDataPie]=useState([
         {

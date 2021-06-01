@@ -4,6 +4,7 @@ import HomeStack from "./HomeStack";
 import CategorieStack from "../routes/CategorieStack"
 import LoginScreen from "../screens/LoginScreen"
 import goals from"../screens/goals";
+import GoalStack from "../routes/Goalstack"
 import chart from"../screens/chart";
 import Reminders from "../screens/Reminders";
 import SideBar from "../Components/sideBar";
@@ -49,7 +50,7 @@ const MainStack=createDrawerNavigator(
      }
 },
 Goals:{
-    screen:goals,
+    screen:GoalStack,
     navigationOptions:{
         drawerIcon:({tintColor})=><MaterialCommunityIcons name="target" size={24} color={tintColor}/>
      }

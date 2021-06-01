@@ -4,8 +4,10 @@ import FlatButton from '../Components/Buttons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ForgetPassword from './ForgetPassword';
-import { FontAwesome} from '@expo/vector-icons';
-import baseUrl from '../services/api'
+import {FontAwesome5} from '@expo/vector-icons';
+import baseUrl from '../services/api';
+import Toast from 'react-native-toast-message';
+import {FAB} from 'react-native-elements'
 function LoginScreen({navigation}) {
 const [Username,setUsername]=useState('');
 const[Password,SetPassword]=useState('');
@@ -17,14 +19,16 @@ const pressHandler2=()=>{
 navigation.navigate('Register');
 }
   return (
+    
         <View style={styles.container}>
+             <Toast ref={(ref) => Toast.setRef(ref)} />
           <View style={styles.logoContainor}>
             <Image 
             style={styles.logo}
             source={require('../assets/logo.png')} ></Image>
           </View>
           <View style={styles.formContainer}>
-          
+       
          <TextInput
           style={styles.input}
          placeholder="Username"
@@ -46,19 +50,30 @@ navigation.navigate('Register');
         .then(res=>{
           
           AsyncStorage.setItem('token',res.data.id_token).then(
-            res=>{navigation.navigate('Home');}
+            res=>{navigation.navigate('Home');
+            }
           );
         },)
 
 
         .catch(function (error) {
-          console.log(error);})
+          console.log(error);
+          Toast.show({
+            text1: 'error',
+          });})
           }} />
         <TouchableOpacity style={{ paddingTop:20, alignItems:'center'}} onPress={pressHandler}>
           <Text style={{color:"white"}}>Don't have an account?Sign Up Now</Text></TouchableOpacity>
         <TouchableOpacity  style={{alignItems:'center'}} onPress={()=>{navigation.push('ForgetPassword');}}>
         <Text style={{color:"white"}}>Forgot Password?</Text></TouchableOpacity>
         </View>
+        <FAB icon={
+    <FontAwesome5
+      name="child"
+      size={35}
+      color="#4460FE"
+    />} color='#FED51E' placement='right' style={{ position:'absolute',bottom:0}} buttonStyle={{height:60,width:60,borderRadius:40}}
+    onPress={()=>{navigation.push('RegisterKid');}} />
         </View>
       );
 }

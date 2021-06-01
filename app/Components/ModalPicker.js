@@ -1,6 +1,9 @@
-import React from 'react';
+import React ,{useEffect,useState}from 'react';
 import {View, StyleSheet,Text,TouchableOpacity,Dimensions,ScrollView} from 'react-native';
-const Categories=['Food & Drinks','Housing','Education','Fun','Incomes'];
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import baseUrl from '../services/api';
+import axios from 'axios';
+//const Categories=['Food & Drinks','Housing','Education','Fun','Incomes'];
 const WIDTH=Dimensions.get('window').width;
 const HEIGHT=Dimensions.get('window').height;
 const ModalPicker=(props)=>{
@@ -9,7 +12,30 @@ const ModalPicker=(props)=>{
      props.setData(option);
 
    }
-    
+const [Categories,setCategories]=useState([]);
+useEffect(()=>
+    {console.log( "text"+AsyncStorage.getItem('token'));
+       AsyncStorage.getItem('token').then(
+           res=>{
+               console.log(res);
+               const config={
+                   headers:{
+                       Authorization:'Bearer '+ res,
+                       
+                   }
+               };
+      
+           axios.get(baseUrl+'api/categories/namecatego',config).then(
+               res=>{
+
+                   console.log("liste catego"+ JSON.stringify(res.data));
+                   setCategories(res.data);},
+               err=>{console.log(err);}
+           )
+           },
+           err=>{console.log(err);}
+       )
+   },[setCategories]);
  const option=Categories.map((item,index)=>{
      return(
          <TouchableOpacity style={styles.option}

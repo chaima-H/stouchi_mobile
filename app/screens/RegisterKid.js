@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet,TextInput,Text,View, Alert} from "react-native";
+import {StyleSheet,TextInput,Text,View, Alert,Image} from "react-native";
 import FlatButton from '../Components/Buttons';
 import {Formik} from "formik";
 import * as yup from "yup";
@@ -19,10 +19,15 @@ const validationSchema=yup.object({
    // pay:  yup.string().required()     
 });
 
- function Register({navigation}){
+ function RegisterKid({navigation}){
   
   return(
    <View style={styles.container}>
+        <View style={styles.logoContainor}>
+            <Image 
+            style={styles.logo}
+            source={require('../assets/avatar.png')} ></Image>
+          </View>
      <Formik
      initialValues={{name:'',userName:'',email:'',password:'',soldeUser:'',salary:''}}
      onSubmit={(values, { setSubmitting }) => {
@@ -53,28 +58,28 @@ const validationSchema=yup.object({
      {props=>(
        <React.Fragment>
          <TextInput
-          style={styles.input}
+          style={styles.style1}
          placeholder="name"
          placeholderTextColor="white"
          onChangeText={props.handleChange('name')}
          value={props.values.name}
          ></TextInput>
          <TextInput
-          style={styles.input}
+          style={styles.style2}
          placeholder="Username"
          placeholderTextColor="white"
          onChangeText={props.handleChange('userName')}
          value={props.values.userName}
          ></TextInput>
          <TextInput 
-         style={styles.input} 
+    style={styles.style3}
          placeholder="email" 
          placeholderTextColor="white"
          onChangeText={props.handleChange('email')}
          value={props.values.email}
          ></TextInput>
          <TextInput 
-         style={styles.input} 
+     style={styles.style4}
          placeholder="Password" 
          secureTextEntry
          placeholderTextColor="white"
@@ -83,20 +88,14 @@ const validationSchema=yup.object({
          
          ></TextInput>
          <TextInput 
-         style={styles.input} 
-         placeholder="Balance" 
+         style={styles.style5}
+         placeholder="Pocket Money" 
          placeholderTextColor="white"
          onChangeText={props.handleChange('soldeUser')}
          value={props.values.soldeUser}
          
          ></TextInput>
-          <TextInput 
-         style={styles.input} 
-         placeholder="Pay" 
-         placeholderTextColor="white"
-         onChangeText={props.handleChange('salary')}
-         value={props.values.salary}
-         ></TextInput>
+        
           
         
            <FlatButton text='sign in' onPress={props.handleSubmit} />
@@ -109,6 +108,19 @@ const validationSchema=yup.object({
    </View>
   );
 }
+const input={
+   
+        borderWidth :0.5 ,
+        borderColor: "white",
+        width : 250,
+        height: 50,
+        borderRadius: 20,
+        //backgroundColor: "#87CEE0",
+        marginBottom : 20,
+        textAlign:'center',
+        fontSize: 20,
+       
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -116,17 +128,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
- input : {
-  borderWidth :0.5 ,
-  borderColor: "white",
-  width : 250,
-  height: 50,
-  borderRadius: 20,
-  backgroundColor: "#87CEE0",
-  marginBottom : 20,
-  textAlign:'center',
-  fontSize: 20,
+ 
+ 
+ style1:{
+     backgroundColor:'#26C6FD',
+     ...input
  },
+ style2:{
+    backgroundColor:'#0EF960',
+    ...input
+},
+style3:{
+    backgroundColor:'#FDDC26',
+    ...input
+},
+style4:{
+    backgroundColor:'#CC26FD',
+    ...input
+},
+style5:{
+    backgroundColor:'#FD5726',
+    ...input
+},
+logo:{
+     
+    width:100,
+    height:100,
+  },
+  logoContainor:{
+    alignItems:'center',
+    flexGrow: 0.1,
+  },
 });
 
-export default Register;
+export default RegisterKid;

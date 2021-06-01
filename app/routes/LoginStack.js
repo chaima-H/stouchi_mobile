@@ -4,6 +4,7 @@ import { createAppContainer } from "react-navigation";
 import LoginScreen from "../screens/LoginScreen";
 import Register from "../screens/Register";
 import ForgetPassword from"../screens/ForgetPassword";
+import RegisterKid from "../screens/RegisterKid";
 import Drawer from"../routes/Drawer";
 const screens={
     LoginScreen:{
@@ -29,7 +30,13 @@ const screens={
         navigationOptions:{
             header:null
         }
-    }
+    },
+    RegisterKid:{
+        screen:RegisterKid,
+        navigationOptions:{
+            headerStyle:{backgroundColor:"#eee"}
+        }
+    },
 }
 const LoginStack=createStackNavigator(screens);
 export default createAppContainer(LoginStack);

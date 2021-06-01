@@ -1,7 +1,7 @@
 import React,{Component,useState,useEffect} from 'react';
 import {View,Text,StyleSheet,TextInput, 
   Button, Modal,Keyboard,TouchableWithoutFeedback,
-  KeyboardAvoidingView,Platform} from 'react-native';
+  KeyboardAvoidingView,Platform,Alert} from 'react-native';
 import RadioButton from '../Components/RadioButton';
 import {  MaterialIcons} from '@expo/vector-icons';
 import TestDate from '../Components/TestDate';
@@ -10,6 +10,7 @@ import baseUrl from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Create from '../Components/Create';
 import { date } from 'yup/lib/locale';
+
 
 const PROP = [
 	{
@@ -25,6 +26,7 @@ const PROP = [
 ];
 
  function Addition ({navigation}){
+
   const OnSelect=(data)=>{
     setSelect(data);
   }
@@ -71,9 +73,13 @@ const PROP = [
               axios(config)
               .then(function (response) {
                 console.log(JSON.stringify(response.data));
+                Alert.alert("","added success");
+               
               })
               .catch(function (error) {
                 console.log(error);
+                Alert.alert("","added fail");
+               
               })
           },
           err=>{console.log(err);}
@@ -111,7 +117,7 @@ const PROP = [
   
           </View>
           </Modal>
- 
+         
  
  
  <View style={styles.icon} ><MaterialIcons name="add-circle" size={35} color="white" onPress={()=>{setModalOpen(true)}}/></View>
@@ -130,11 +136,14 @@ const PROP = [
           <View style={styles.button}><Button title='Add' color="#EBE119" 
           onPress={handleLogout}
        
-          ></Button></View>
-
+          ></Button>   
+          </View>
+     
       </View>
+      
       </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
+    
     );
   }
 

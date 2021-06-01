@@ -6,16 +6,20 @@ import axios from 'axios';
 import { FontAwesome5 } from '@expo/vector-icons';
 import baseUrl from '../services/api';
 import { FlatList } from 'react-native-gesture-handler';
+import { NavigationEvents } from 'react-navigation';
 function Incomes ({navigation}){
     const[budget,setBudget]=useState('');
     const[databar,setDatabar]=useState([30, 200, 170, 250, 10]);
     const [listHist,setlistHist]=useState([]);
+  
+
     const pressHandler=()=>{
         navigation.navigate('Addition');
          } 
        useEffect(()=>
-         {console.log( "text"+AsyncStorage.getItem('token'));
-            AsyncStorage.getItem('token').then(
+         {
+             console.log( "text"+AsyncStorage.getItem('token'));
+          AsyncStorage.getItem('token').then(
                 res=>{
                     console.log(res);
                     const config={
@@ -23,7 +27,7 @@ function Incomes ({navigation}){
                             Authorization:'Bearer '+ res
                         }
                     };
-                    axios.get(baseUrl+'api/usersolde',config).then(
+                     axios.get(baseUrl+'api/usersolde',config).then(
                         res=>{
         
                             console.log(res.data);
@@ -51,12 +55,13 @@ function Incomes ({navigation}){
                 },
                 err=>{console.log(err);}
             )
+        
         },[setBudget,setDatabar,setlistHist]);
          console.log(databar)
-    
         return(
             <View style={styles.container}>
-               
+              
+
             <View style={{marginTop:10,marginBottom:10}}>
                 
                <View ><PureChart   width={'0%'}
@@ -65,6 +70,7 @@ function Incomes ({navigation}){
                 {listHist.length==0?<Text style={{textAlign:'center',marginTop:100}}>No history added!</Text> : <FlatList
                    data={listHist}  
                     renderItem={({item})=>(item.typeCatego=="Revenus"?(<View style={styles.item}>
+                         
                         <View style={{width:30,
             height:30, 
             backgroundColor:item.color,
