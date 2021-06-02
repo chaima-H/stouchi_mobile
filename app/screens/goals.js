@@ -23,7 +23,7 @@ const GoalsScreen = ({navigation})=>{
                         Authorization:'Bearer '+ res
                     }
                 };
-                axios.get(baseUrl+'api/objectives',config).then(
+                axios.get(baseUrl+'api/objectives/getallobj',config).then(
                 res=>{
 
                     console.log(res.data);

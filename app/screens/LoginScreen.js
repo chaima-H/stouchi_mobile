@@ -11,9 +11,14 @@ import {FAB} from 'react-native-elements'
 function LoginScreen({navigation}) {
 const [Username,setUsername]=useState('');
 const[Password,SetPassword]=useState('');
-
-const pressHandler2=()=>{
-  navigation.navigate('Home');
+const[typeUser,settypeUser]=useState('');
+const pressHandler2=(type)=>{
+  if(type == "adult") {
+    navigation.navigate('Home');
+  }
+  else if(type == "Kid") {
+    navigation.navigate('KidSpace');
+  }
   }
   const pressHandler=()=>{
 navigation.navigate('Register');
@@ -48,11 +53,29 @@ navigation.navigate('Register');
            password:Password,
         })
         .then(res=>{
-          
           AsyncStorage.setItem('token',res.data.id_token).then(
-            res=>{navigation.navigate('Home');
+            res=>{
+              AsyncStorage.getItem('token').then(
+                res=>{
+                    console.log(res);
+                    const config={
+                        headers:{
+                            Authorization:'Bearer '+ res
+                        }
+                    };
+                    axios.get(baseUrl+'api/account',config).then(
+                    res=>{
+                     console.log(JSON.stringify(res.data));
+                    settypeUser(res.data.typeUser); 
+                    },
+                    err=>{
+                    console.log(err);
+                    })})
+                    console.log('it s here');
+            
             }
-          );
+          ); {typeUser=="kid"?navigation.navigate('KidSpace'):null}
+          {typeUser=="adult"?navigation.navigate('Home'):null}
         },)
 
 

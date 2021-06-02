@@ -30,49 +30,57 @@ const Expenses =({navigation})=>{
         navigation.navigate('Addition');
          } 
        useEffect(()=>
-         {console.log( "text"+AsyncStorage.getItem('token'));
+         {
+         
             AsyncStorage.getItem('token').then(
-                res=>{
-                    console.log(res);
-                    const config={
-                        headers:{
-                            Authorization:'Bearer '+ res
-                        }
-                    };
-                    axios.get(baseUrl+'api/usersolde',config).then(
-                    res=>{
-    
-                        console.log(res.data);
-                        console.log("it s me"+ res.data);
-                    setBudget(res.data);},
-                    err=>{console.log(err);}
-                )
-                axios.get(baseUrl+'api/categories/piechartdepense',config).then(
-                    res=>{
-    
-                        console.log(JSON.stringify(res.data));
-                       let sum=0;
-                        for (let item of res.data){
-                            console.log(JSON.stringify(item));
-                            sum+=item.value;
-                        }
-                        if (sum>0) {setDataPie(res.data);}
-                    
-                },
-                    err=>{console.log(err);}
-                )
-                axios.get(baseUrl+'api/history-lines/all',config).then(
-                    res=>{
-    
-                        console.log("history"+ JSON.stringify(res.data));
-                    setlistHist(res.data);},
-                    err=>{console.log(err);}
-                )
-                },
-                err=>{console.log(err);}
-            )
+              res=>{
+                  console.log(res);
+                  const config={
+                      headers:{
+                          Authorization:'Bearer '+ res
+                      }
+                  };
+                  axios.get(baseUrl+'api/usersolde',config).then(
+                  res=>{
+  
+                     // console.log(res.data);
+                     // console.log("it s me"+ res.data);
+                  setBudget(res.data);},
+                  err=>{
+                  console.log(err);
+                  }
+              )
+              axios.get(baseUrl+'api/categories/piechartdepense',config).then(
+                  res=>{
+  
+                    //  console.log(JSON.stringify(res.data));
+                     let sum=0;
+                      for (let item of res.data){
+                      //    console.log(JSON.stringify(item));
+                          sum+=item.value;
+                      }
+                      if (sum>0) {setDataPie(res.data);}
+                  
+              },
+                  err=>{
+                    console.log(err);
+                  }
+              )
+              axios.get(baseUrl+'api/history-lines/all',config).then(
+                  res=>{
+  
+                  //    console.log("history"+ JSON.stringify(res.data));
+                  setlistHist(res.data);},
+                  err=>{
+                    console.log(err);
+                  }
+              )
+              },
+              err=>{console.log(err);}
+          )
+              
         },[setBudget,setDataPie,setlistHist]);
-         console.log(listHist)
+        // console.log(listHist)
     
         return(
            

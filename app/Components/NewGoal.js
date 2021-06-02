@@ -33,7 +33,7 @@ function NewGoal (){
     
    
   
- const handle=()=>{
+ const handle=(datefin)=>{
    console.log( "text2"+AsyncStorage.getItem('token'));
  AsyncStorage.getItem('token').then(
   res=>{
@@ -42,11 +42,10 @@ function NewGoal (){
         "color":icon.color,
         "name":goal,
         "amountTot":amount,
-        "nameIcon":icon.name,
         "periodicity":{
-            "frequancy":"mois",
+            "frequancy":"month",
             "dateDeb":dateDeb,
-            "dateFin":dateFin,}
+            "dateFin":datefin,}
      });
      console.log("first test"+data);
       const config={
@@ -84,7 +83,6 @@ const handleSuggest=()=>{
          "color":icon.color,
          "name":goal,
          "amountTot":amount,
-         "nameIcon":icon.name,
          "periodicity":{
              "frequancy":"mois",
              "dateDeb":dateDeb,
@@ -153,7 +151,7 @@ marginLeft:10}} ><MaterialCommunityIcons name={item.name} size={50} color="white
           <View style={styles.double}><Text style={styles.label} >End date</Text><TestDate  setDate={(dateFin)=>{setDateFin(dateFin)}}></TestDate></View>
          
         <TouchableOpacity style={styles.button}
-         onPress={handle}>       
+         onPress={()=>{handle(dateFin)}}>       
            <Text style={styles.buttonText}>Create</Text></TouchableOpacity> 
           
            <TouchableOpacity style={styles.button} onPress={preesSugget}
@@ -172,7 +170,9 @@ marginLeft:10}} ><MaterialCommunityIcons name={item.name} size={50} color="white
            <Text style={{color:'#FED944',fontWeight:'bold'}}>start date: {item.periodicity.dateDeb}</Text>
            <View style={{flexDirection:'row'}}>
            <Text style={{color:'#FED944',fontWeight:'bold'}}>end date: {item.periodicity.dateFin}</Text>
-           <Button title='+'  buttonStyle={{marginLeft:50,marginTop:0,backgroundColor:'#FE4496'}}></Button>
+           <Button title='+'  buttonStyle={{marginLeft:50,marginTop:0,backgroundColor:'#FE4496'}}
+              onPress={()=>{handle(item.periodicity.dateFin)}}
+           ></Button>
            </View>
            </View>
   

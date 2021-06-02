@@ -6,6 +6,7 @@ import Register from "../screens/Register";
 import ForgetPassword from"../screens/ForgetPassword";
 import RegisterKid from "../screens/RegisterKid";
 import Drawer from"../routes/Drawer";
+import KidSpace from "../screens/KidSpace";
 const screens={
     LoginScreen:{
         screen:LoginScreen,
@@ -35,6 +36,12 @@ const screens={
         screen:RegisterKid,
         navigationOptions:{
             headerStyle:{backgroundColor:"#eee"}
+        }
+    },
+    KidSpace:{
+        screen:KidSpace,
+        navigationOptions:{
+            header:null
         }
     },
 }

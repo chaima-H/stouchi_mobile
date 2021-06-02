@@ -29,7 +29,7 @@ const validationSchema=yup.object({
             source={require('../assets/avatar.png')} ></Image>
           </View>
      <Formik
-     initialValues={{name:'',userName:'',email:'',password:'',soldeUser:'',salary:''}}
+     initialValues={{name:'',userName:'',email:'',password:'',soldeUser:''}}
      onSubmit={(values, { setSubmitting }) => {
       axios.post(baseUrl+'api/register', {
         login: values.userName,
@@ -37,7 +37,7 @@ const validationSchema=yup.object({
         email:values.email,
         firstName:values.name,
         soldeUser:values.soldeUser,
-        salary:values.salary
+        typeUser:"kid"
 
       })
       .then(res=>{

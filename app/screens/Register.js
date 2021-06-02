@@ -32,7 +32,8 @@ const validationSchema=yup.object({
         email:values.email,
         firstName:values.name,
         soldeUser:values.soldeUser,
-        salary:values.salary
+        salary:values.salary,
+        typeUser:"adult"
 
       })
       .then(res=>{

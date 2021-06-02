@@ -21,6 +21,7 @@
     "react-native-calculator": "^0.5.2",
     "react-native-calendars": "^1.1261.0",
     "react-native-datepicker": "^1.7.2",
+    "react-native-dialog": "^8.0.1",
     "react-native-elements": "^3.4.1",
     "react-native-gesture-handler": "~1.8.0",
     "react-native-modal-datetime-picker": "^9.2.1",
